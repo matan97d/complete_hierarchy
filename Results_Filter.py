@@ -28,7 +28,7 @@ def trim_dictionary(dict, str):
 def trim_non_json(txt, filter_str):
     # print(txt)
     try:
-        trimmed = txt.split("Attaching...\r\n")[1]
+        trimmed = txt.split("Attaching...\r\n")[1]  # need to change to "{" delimiter and join [1:] results
         trimmed = trimmed.split("[")[0]
         trimmed = trimmed.split("\r\n")
     except:
@@ -39,7 +39,7 @@ def trim_non_json(txt, filter_str):
     json_trimmed = json.loads(trimmed)
     trimmed_dict = trim_dictionary(json_trimmed, filter_str)
     # print(trimmed_dict)
-    filename = filter_str[0] + "1.txt"
+    filename = filter_str[0] + "12.txt"
     file = open(filename, "w", newline='')
     sys.stdout = file
     pprint.pprint(trimmed_dict)
@@ -48,10 +48,10 @@ def trim_non_json(txt, filter_str):
 
 
 def main(argv):
-    file = open("Robo.txt", "rb")
+    file = open(argv[0], "rb")
     contents = file.read()
     contents = contents.decode("utf-8")
-    trim_non_json(contents, argv)
+    trim_non_json(contents, argv[1:])
     # print(contents)
     # print(file.read
 
