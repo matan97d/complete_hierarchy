@@ -21,7 +21,11 @@ def run_frida_script(js, pid_pname):
 
 
 def main(argv):
-    run_frida_script('complete_class_hierarchy.js', argv[0])
+    if "-m" in argv:
+        argv.remove("-m")
+        run_frida_script('complete_class_method_hierarchy.js', argv[0])
+    else:
+        run_frida_script('complete_class_hierarchy.js', argv[0])
     print("frida ended")
     Results_Filter.filter_tree(argv)
 
