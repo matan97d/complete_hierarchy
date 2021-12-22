@@ -26,7 +26,7 @@ def trim_dictionary(dict, str):
 
 
 # for bat script
-def trim_non_json(txt, filter_str):
+def trim_non_json(txt):
     # print(txt)
     try:
         trimmed = txt.split("Attaching...\r\n")[1]  # need to change to "{" delimiter and join [1:] results
@@ -47,7 +47,7 @@ def create_trimmed_dictionary(txt, filter_str):
     filename = filter_str[0] + "_trimmed.txt"
     file = open(filename, "w", newline='')
     sys.stdout = file
-    pprint.pprint(trimmed_dict)
+    print(json.dumps(trimmed_dict, indent=4))
     file.close()
 
 
@@ -60,5 +60,13 @@ def filter_tree(argv):
     # print(file.read)
 
 
+def testing_version(argv):
+    file = open(argv[0] + ".txt", "rb")
+    contents = file.read()
+    contents = contents.decode("utf-8")
+    trimmed = trim_non_json(contents)
+    create_trimmed_dictionary(trimmed, argv[1:])
+
+
 if __name__ == '__main__':
-    filter_tree(sys.argv[1:])
+    testing_version(sys.argv[1:])
