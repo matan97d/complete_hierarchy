@@ -27,7 +27,8 @@ def main(argv):
     else:
         run_frida_script('complete_class_hierarchy.js', argv[0])
     print("frida ended")
-    Results_Filter.filter_tree(argv)
+    if len(argv) > 1:
+        Results_Filter.filter_tree(argv)
 
 
 if __name__ == '__main__':
